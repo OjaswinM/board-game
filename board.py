@@ -6,6 +6,8 @@ class Board:
         self.h = h
         self.w = w
         self.state = []
+        self.playerPosR = 1
+        self.playerPosC = 1
 
     def initialise(self):
         for i in range(self.h+2):
@@ -18,7 +20,14 @@ class Board:
                 if j == 0 or j == (self.w+1):
                     self.state[i][j] = '#'
                     continue
+                if i == self.playerPosR and j == self.playerPosC:
+                    self.state[i][j] = 'P'
+
 
     def display(self):
         for row in self.state:
             print ' '.join(row)
+
+br = Board()
+br.initialise()
+br.display()
