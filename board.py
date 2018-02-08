@@ -9,6 +9,9 @@ class Board:
         self.playerPosR = 1
         self.playerPosC = 1
 
+    def updatePos(self):
+        self.state[self.playerPosR][self.playerPosC] = 'P'
+
     def initialise(self):
         for i in range(self.h+2):
             self.state.append(['_']*(self.w+2))
@@ -20,14 +23,21 @@ class Board:
                 if j == 0 or j == (self.w+1):
                     self.state[i][j] = '#'
                     continue
-                if i == self.playerPosR and j == self.playerPosC:
-                    self.state[i][j] = 'P'
+        self.state[self.playerPosR][self.playerPosC] = 'P'
 
+    def reset(self):
+        for i in range(self.h+2):
+            for j in range(self.w+2):
+                if i == 0 or i == (self.h+1):
+                    self.state[i][j] = '#'
+                    continue
+                if j == 0 or j == (self.w+1):
+                    self.state[i][j] = '#'
+                    continue
+                self.state[i][j] = '_'
+        self.updatePos()
 
     def display(self):
+        self.reset()
         for row in self.state:
             print ' '.join(row)
-
-br = Board()
-br.initialise()
-br.display()
