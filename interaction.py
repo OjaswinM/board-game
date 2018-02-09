@@ -1,7 +1,7 @@
 from board import Board
 from player import Player
 from pynput.keyboard import Key, Controller
-from getch import _Getch
+import readchar
 
 keyboard = Controller()
 br = Board()
@@ -13,5 +13,5 @@ p = Player(br)
 #br.playerPosC = p.currX
 #br.display()
 
-getch = _Getch()
-getch()
+c = readchar.readchar()
+print c
