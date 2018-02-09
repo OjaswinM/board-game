@@ -1,18 +1,17 @@
-from board import *
-from player import *
+from board import Board
+from player import Player
+from pynput.keyboard import Key, Controller
+from getch import _Getch
 
+keyboard = Controller()
 br = Board()
 br.initialise()
-
 p = Player(br)
 
-p.moveDown()
-p.moveRight()
-p.moveDown()
-p.moveLeft()
-p.moveUp()
+#p.moveRight()
+#br.playerPosR = p.currY
+#br.playerPosC = p.currX
+#br.display()
 
-br.playerPosC = p.currX
-br.playerPosR = p.currY
-
-br.display()
+getch = _Getch()
+getch()
