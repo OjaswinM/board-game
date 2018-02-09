@@ -1,5 +1,5 @@
-height = 50
-width = 50
+height = 20
+width = 20
 
 class Board:
     def __init__(self,h=height,w=width):
@@ -8,9 +8,12 @@ class Board:
         self.state = []
         self.playerPosR = 1
         self.playerPosC = 1
+        self.goalR = h-5
+        self.goalC = w-7
 
     def updatePos(self):
         self.state[self.playerPosR][self.playerPosC] = 'P'
+        self.state[self.goalR][self.goalC] = 'O'
 
     def initialise(self):
         for i in range(self.h+2):
@@ -24,6 +27,8 @@ class Board:
                     self.state[i][j] = '#'
                     continue
         self.state[self.playerPosR][self.playerPosC] = 'P'
+
+
 
     def reset(self):
         for i in range(self.h+2):
