@@ -1,4 +1,4 @@
-from board import *
+from board import Board
 
 class Player(Board):
     def __init__(self, brd, x = 1, y = 1):

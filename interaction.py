@@ -2,6 +2,7 @@ from board import Board
 from player import Player
 from pynput.keyboard import Key, Controller
 import readchar
+import os
 
 keyboard = Controller()
 br = Board()
@@ -12,6 +13,23 @@ p = Player(br)
 #br.playerPosR = p.currY
 #br.playerPosC = p.currX
 #br.display()
-
-c = readchar.readchar()
-print c
+x = True
+br.display()
+while x == True:
+    c = readchar.readchar()
+    if c == 'w':
+        p.moveUp()
+    elif c == 's':
+        p.moveDown()
+    elif c == 'a':
+        p.moveLeft()
+    elif c == 'd':
+        p.moveRight()
+    elif c == 'q':
+        print "Quitting.."
+        x = False
+        break
+    os.system('cls' if os.name == 'nt' else 'clear')
+    br.playerPosR = p.currY
+    br.playerPosC = p.currX
+    br.display()

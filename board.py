@@ -1,5 +1,5 @@
-height = 5
-width = 5
+height = 50
+width = 50
 
 class Board:
     def __init__(self,h=height,w=width):
