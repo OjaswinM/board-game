@@ -4,20 +4,14 @@ from pynput.keyboard import Key, Controller
 import readchar
 import os
 
-h = 20
-w = 20
-
-cheeseR = 13
-cheeseC = 15
-
 keyboard = Controller()
 br = Board()
 br.initialise()
 p = Player(br)
 
 #p.moveRight()
-#br.playerPosR = p.currY
-#br.playerPosC = p.currX
+#br.playerPosR = p.currR
+#br.playerPosC = p.currC
 #br.display()
 x = True
 
@@ -37,7 +31,7 @@ while x == True:
         x = False
         break
     os.system('cls' if os.name == 'nt' else 'clear')
-    br.playerPosR = p.currY
-    br.playerPosC = p.currX
+    br.playerPosR = p.currR
+    br.playerPosC = p.currC
     br.display()
-    print p.fitness
+    print p.currR, p.currC, p.fitness

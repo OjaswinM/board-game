@@ -1,36 +1,36 @@
 from board import Board
 
-cheeseR = 13
-cheeseC = 15
 
 class Player(Board):
-    def __init__(self, brd, x = 1, y = 1):
-        self.currX = x
-        self.currY= y
+    def __init__(self, brd, row = 1, col = 1):
+        self.currC = col
+        self.currR= row
         self.moves = []
         self.board = brd.state
         self.fitness = None
+        self.goalC = brd.goalC
+        self.goalR = brd.goalR
 
     def fitnessCalc(self):
-        self.fitness = ((cheeseR - self.currX) ** 2 + (cheeseC - self.currY) ** 2) ** 0.5
+        self.fitness = ((self.goalR - self.currR) ** 2 + (self.goalC - self.currC) ** 2) ** 0.5
 
     def moveLeft(self):
-        if self.board[self.currX - 1][self.currY] != '#':
-            self.currX -= 1
-            self.moves.append((self.currX, self.currY))
+        if self.board[self.currC - 1][self.currR] != '#':
+            self.currC -= 1
+            self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveRight(self):
-        if self.board[self.currX + 1][self.currY] != '#':
-            self.currX += 1
-            self.moves.append((self.currX, self.currY))
+        if self.board[self.currC + 1][self.currR] != '#':
+            self.currC += 1
+            self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveUp(self):
-        if self.board[self.currX][self.currY - 1] != '#':
-            self.currY -= 1
-            self.moves.append((self.currX, self.currY))
+        if self.board[self.currC][self.currR - 1] != '#':
+            self.currR -= 1
+            self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveDown(self):
-        if self.board[self.currX][self.currY + 1] != '#':
-            self.currY += 1
-            self.moves.append((self.currX, self.currY))
+        if self.board[self.currC][self.currR + 1] != '#':
+            self.currR += 1
+            self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
