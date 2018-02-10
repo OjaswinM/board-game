@@ -1,6 +1,7 @@
 height = 20
 width = 20
-
+cheeseR = 13
+cheeseC = 15
 class Board:
     def __init__(self,h=height,w=width):
         self.h = h
@@ -8,8 +9,8 @@ class Board:
         self.state = []
         self.playerPosR = 1
         self.playerPosC = 1
-        self.goalR = h-5
-        self.goalC = w-7
+        self.goalR = cheeseC
+        self.goalC = cheeseR
 
     def updatePos(self):
         self.state[self.playerPosR][self.playerPosC] = 'P'
@@ -26,7 +27,7 @@ class Board:
                 if j == 0 or j == (self.w+1):
                     self.state[i][j] = '#'
                     continue
-        self.state[self.playerPosR][self.playerPosC] = 'P'
+        self.state[self.playerPosC][self.playerPosR] = 'P'
 
 
 
