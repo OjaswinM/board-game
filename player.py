@@ -10,6 +10,7 @@ class Player(Board):
         self.fitness = None
         self.goalC = brd.goalC
         self.goalR = brd.goalR
+        self.score = 0
 
     def fitnessCalc(self):
         self.fitness = ((self.goalR - self.currR) ** 2 + (self.goalC - self.currC) ** 2) ** 0.5
@@ -34,3 +35,12 @@ class Player(Board):
             self.currR += 1
             self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
+
+    def win(self):
+        self.currR = 1;
+        self.currC = 1;
+        self.score += 1
+
+    def winConditionCheck(self):
+        if self.goalR == self.currR and self.goalC == self.currC:
+            self.win()

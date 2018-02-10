@@ -8,24 +8,27 @@ keyboard = Controller()
 br = Board()
 br.initialise()
 p = Player(br)
-
+br.display()
+print p.currR, p.currC, p.fitness, p.score
 #p.moveRight()
 #br.playerPosR = p.currR
 #br.playerPosC = p.currC
 #br.display()
 x = True
-
-br.display()
 while x == True:
     c = readchar.readchar()
     if c == 'w':
         p.moveUp()
+        p.winConditionCheck()
     elif c == 's':
         p.moveDown()
+        p.winConditionCheck()
     elif c == 'a':
         p.moveLeft()
+        p.winConditionCheck()
     elif c == 'd':
         p.moveRight()
+        p.winConditionCheck()
     elif c == 'q':
         print "Quitting.."
         x = False
@@ -34,4 +37,5 @@ while x == True:
     br.playerPosR = p.currR
     br.playerPosC = p.currC
     br.display()
-    print p.currR, p.currC, p.fitness
+
+    print p.currR, p.currC, p.fitness, p.score
