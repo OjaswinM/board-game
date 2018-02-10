@@ -9,11 +9,10 @@ br = Board()
 br.initialise()
 p = Player(br)
 br.display()
-print p.currR, p.currC, p.fitness, p.score
-#p.moveRight()
-#br.playerPosR = p.currR
-#br.playerPosC = p.currC
-#br.display()
+print p.currR, ",", p.currC
+print "Fitness:", p.fitness
+print "Score:", p.score
+
 x = True
 while x == True:
     c = readchar.readchar()
@@ -38,4 +37,6 @@ while x == True:
     br.playerPosC = p.currC
     br.display()
 
-    print p.currR, p.currC, p.fitness, p.score
+    print p.currR, ",", p.currC
+    print "Fitness:", p.fitness
+    print "Score:", p.score
