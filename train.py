@@ -4,6 +4,7 @@ import numpy as np
 import random
 import time
 import os
+import matplotlib.pyplot as plt
 gammaFactor = 0.8
 
 def initRewards(R,row,col):
@@ -70,7 +71,21 @@ encloseMinusOne(R)
 initRewards(R,br.goalR,br.goalC)
 Q = np.zeros((br.h + 2,br.w + 2),dtype=int)
 encloseMinusOne(Q)
-for i in range(10000):
+for i in range(1000):
     training(R,Q,br,p)
+    print i
+np.set_printoptions(threshold=np.nan)
+# def display(npBoard):
+#     displayBoard = npBoard
+#     for emt in displayBoard:
+#         emt = str(emt)
+#         print(emt)
+#         # for row in displayBoard:
+#         #     print ' '.join(row)
 
+plt.imshow(Q)
+plt.show()
+# def normalise(numpyArray):
+#     numpyArray = (numpyArray - np.amax(numpyArray))/(np.amax(numpyArray) - np.amin(numpyArray))
+# normalise(Q)
 print Q
