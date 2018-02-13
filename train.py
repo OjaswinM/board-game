@@ -2,7 +2,8 @@ from board import Board
 from player import Player
 import numpy as np
 import random
-
+import time
+import os
 gammaFactor = 0.8
 
 def initRewards(R,row,col):
@@ -28,7 +29,48 @@ def spawnLocation(noRow,noCol):
     col = random.randint(1,noCol)
     return row,col
 
-def training(board,player,R,Q):
+def training(R,Q,board,player):
     row,col = spawnLocation(board.w,board.h)
-    player.curC = col
+    player.currC = col
     player.currR = row
+    board.playerPosC = player.currC
+    board.playerPosR = player.currR
+    board.display()
+    i=1
+    while((player.currR != board.goalR) or (player.currC != board.goalC)):
+        moveOneStep(player)
+        Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
+        i = i+1
+        # board.playerPosC = player.currC
+        # board.playerPosR = player.currR
+        # board.display()
+        # print player.currR, player.currC
+        # print board.goalR, board.goalC
+
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    # time.sleep(0.4)
+
+def moveOneStep(player):
+    temp = random.randint(1,4)
+    if temp == 1:
+        player.moveUp()
+    elif temp == 2:
+        player.moveDown()
+    elif temp == 3:
+        player.moveLeft()
+    else:
+        player.moveRight()
+
+br = Board()
+br.initialise()
+p = Player(br)
+
+R = np.zeros((br.h + 2,br.w + 2))
+encloseMinusOne(R)
+initRewards(R,br.goalR,br.goalC)
+Q = np.zeros((br.h + 2,br.w + 2),dtype=int)
+encloseMinusOne(Q)
+for i in range(10000):
+    training(R,Q,br,p)
+
+print Q
