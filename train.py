@@ -5,9 +5,12 @@ import random
 import time
 import os
 import matplotlib.pyplot as plt
-gammaFactor = 0.85
-os.remove('trained_set.npz')
 
+gammaFactor = 0.85
+try:
+    os.remove('trained_set.npz')
+except OSError:
+    pass
 
 def initRewards(R,row,col):
     R[row,col] = 100        #set reward cell as 100 in R        #sets reward as 100
@@ -80,13 +83,13 @@ for i in range(1000):
 
 np.set_printoptions(threshold=np.nan)
 np.savez_compressed('trained_set.npz', Q = Q)
-# plt.imshow(Q)
-# plt.show()
+plt.imshow(Q)
+plt.show()
 
 def display(numpyArray):
     for i in range(1, br.h + 1):
         for j in range(1, br.w + 1):
             print Q[i, j],
         print '\n'
-        
+
 display(Q)

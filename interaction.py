@@ -3,11 +3,14 @@ from player import Player
 from pynput.keyboard import Key, Controller
 import readchar
 import os
-
+import random
 keyboard = Controller()
 br = Board()
 br.initialise()
+pRow, pCol = random.randint(1, br.h + 1),random.randint(1, br.w + 1)
 p = Player(br)
+os.system('cls' if os.name == 'nt' else 'clear')
+
 br.display()
 print p.currR, ",", p.currC
 print "Fitness:", p.fitness

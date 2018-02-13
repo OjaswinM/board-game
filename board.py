@@ -1,7 +1,7 @@
-height = 10
-width = 10
-cheeseR = 3
-cheeseC = 5
+height = 20
+width = 20
+cheeseR = 8
+cheeseC = 9
 class Board:
     def __init__(self,h=height,w=width):
         self.h = h
