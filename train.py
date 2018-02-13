@@ -69,7 +69,7 @@ p = Player(br)
 R = np.zeros((br.h + 2,br.w + 2))
 encloseMinusOne(R)
 initRewards(R,br.goalR,br.goalC)
-Q = np.zeros((br.h + 2,br.w + 2),dtype=int)
+Q = np.zeros((br.h + 2,br.w + 2),dtype=float)
 encloseMinusOne(Q)
 for i in range(1000):
     training(R,Q,br,p)
@@ -88,4 +88,4 @@ plt.show()
 # def normalise(numpyArray):
 #     numpyArray = (numpyArray - np.amax(numpyArray))/(np.amax(numpyArray) - np.amin(numpyArray))
 # normalise(Q)
-print Q
+print Q/np.amax(Q)
