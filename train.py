@@ -5,7 +5,9 @@ import random
 import time
 import os
 import matplotlib.pyplot as plt
-gammaFactor = 0.8
+gammaFactor = 0.85
+os.remove('trained_set.npz')
+
 
 def initRewards(R,row,col):
     R[row,col] = 100        #set reward cell as 100 in R        #sets reward as 100
@@ -71,21 +73,20 @@ encloseMinusOne(R)
 initRewards(R,br.goalR,br.goalC)
 Q = np.zeros((br.h + 2,br.w + 2),dtype=float)
 encloseMinusOne(Q)
+
 for i in range(1000):
     training(R,Q,br,p)
     print i
-np.set_printoptions(threshold=np.nan)
-# def display(npBoard):
-#     displayBoard = npBoard
-#     for emt in displayBoard:
-#         emt = str(emt)
-#         print(emt)
-#         # for row in displayBoard:
-#         #     print ' '.join(row)
 
-plt.imshow(Q)
-plt.show()
-# def normalise(numpyArray):
-#     numpyArray = (numpyArray - np.amax(numpyArray))/(np.amax(numpyArray) - np.amin(numpyArray))
-# normalise(Q)
-print Q/np.amax(Q)
+np.set_printoptions(threshold=np.nan)
+np.savez_compressed('trained_set.npz', Q = Q)
+# plt.imshow(Q)
+# plt.show()
+
+def display(numpyArray):
+    for i in range(1, br.h + 1):
+        for j in range(1, br.w + 1):
+            print Q[i, j],
+        print '\n'
+        
+display(Q)

@@ -15,9 +15,6 @@ class Board:
     def updatePos(self):
         self.state[self.playerPosR][self.playerPosC] = 'P'
         self.state[self.goalR][self.goalC] = 'O'
-        # self.state[13][7] = 'O'
-        # self.state[5][23] = 'O'
-
 
     def initialise(self):
         for i in range(self.h+2):
