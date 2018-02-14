@@ -22,7 +22,7 @@ def findMaxPosition(Q,row,col):
         return 4   #MoveRight
 
 br = Board()
-pRow, pCol = random.randint(1, br.h+1),random.randint(1, br.w+1)
+pRow, pCol = random.randint(1, br.h),random.randint(1, br.w)
 p = Player(br, pRow, pCol)
 br.playerPosR, br.playerPosC = p.currR, p.currC
 br.initialise()

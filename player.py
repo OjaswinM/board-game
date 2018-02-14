@@ -1,4 +1,5 @@
 from board import Board
+import random
 
 
 class Player(Board):
@@ -11,6 +12,8 @@ class Player(Board):
         self.goalC = brd.goalC
         self.goalR = brd.goalR
         self.score = 0
+        self.sizeR = brd.h
+        self.sizeC = brd.w
 
     def fitnessCalc(self):
         self.fitness = ((self.goalR - self.currR) ** 2 + (self.goalC - self.currC) ** 2) ** 0.5
@@ -37,8 +40,9 @@ class Player(Board):
             self.fitnessCalc()
 
     def win(self):
-        self.currR = 1;
-        self.currC = 1;
+        pRow, pCol = random.randint(1, self.sizeR),random.randint(1, self.sizeC)
+        self.currR = pRow;
+        self.currC = pCol;
         self.score += 1
 
     def winConditionCheck(self):
