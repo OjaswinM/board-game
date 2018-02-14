@@ -83,8 +83,8 @@ for i in range(1000):
 
 np.set_printoptions(threshold=np.nan)
 np.savez_compressed('trained_set.npz', Q = Q)
-plt.imshow(Q)
-plt.show()
+# plt.imshow(Q)
+# plt.show()
 
 def display(numpyArray):
     for i in range(1, br.h + 1):

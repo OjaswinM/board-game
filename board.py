@@ -3,12 +3,12 @@ width = 20
 cheeseR = 8
 cheeseC = 9
 class Board:
-    def __init__(self,h=height,w=width):
+    def __init__(self,h=height,w=width, row = 1, col = 1):
         self.h = h
         self.w = w
         self.state = []
-        self.playerPosR = 1
-        self.playerPosC = 1
+        self.playerPosR = row
+        self.playerPosC = col
         self.goalC = cheeseC
         self.goalR = cheeseR
 

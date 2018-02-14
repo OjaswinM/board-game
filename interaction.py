@@ -6,9 +6,13 @@ import os
 import random
 keyboard = Controller()
 br = Board()
+# br.initialise()
+pRow, pCol = random.randint(1, br.h),random.randint(1, br.w)
+p = Player(br, pRow, pCol)
+br.playerPosR, br.playerPosC = p.currR, p.currC
 br.initialise()
-pRow, pCol = random.randint(1, br.h + 1),random.randint(1, br.w + 1)
-p = Player(br)
+br.reset()
+
 os.system('cls' if os.name == 'nt' else 'clear')
 
 br.display()
