@@ -1,5 +1,6 @@
-from board import Board, height, width
+from board import Board
 import random
+
 
 class Player(Board):
     def __init__(self, brd, row = 1, col = 1):
@@ -18,28 +19,28 @@ class Player(Board):
         self.fitness = ((self.goalR - self.currR) ** 2 + (self.goalC - self.currC) ** 2) ** 0.5
 
     def moveLeft(self):
-        if self.board[self.currC - 1][self.currR] != '#':
+        if self.board[self.currR][self.currC - 1] != '#':
             self.currC -= 1
             self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveRight(self):
-        if self.board[self.currC + 1][self.currR] != '#':
+        if self.board[self.currR][self.currC + 1] != '#':
             self.currC += 1
             self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveUp(self):
-        if self.board[self.currC][self.currR - 1] != '#':
+        if self.board[self.currR - 1][self.currC] != '#':
             self.currR -= 1
             self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
     def moveDown(self):
-        if self.board[self.currC][self.currR + 1] != '#':
+        if self.board[self.currR + 1][self.currC] != '#':
             self.currR += 1
             self.moves.append((self.currC, self.currR))
             self.fitnessCalc()
 
     def win(self):
-        pRow, pCol = random.randint(1, self.sizeR), random.randint(1, self.sizeC)
+        pRow, pCol = random.randint(1, self.sizeR),random.randint(1, self.sizeC)
         self.currR = pRow;
         self.currC = pCol;
         self.score += 1
