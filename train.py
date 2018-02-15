@@ -12,16 +12,8 @@ try:
 except OSError:
     pass
 
-def display(numpyArray):
-    for i in range(1, br.h + 1):
-        for j in range(1, br.w + 1):
-            print Q[i,j],
-        print '\n'
-
 def initRewards(R,row,col):
-    R[row,col] = 100        #set reward cell as 100 in R
-    for i in range(1,8):
-        R[2,i]=-1
+    R[row,col] = 100        #set reward cell as 100 in R        #sets reward as 100
 
 def encloseMinusOne(R):
     for i in range(R.shape[0]):
@@ -31,42 +23,30 @@ def encloseMinusOne(R):
             if j == 0 or j == R.shape[1] - 1:
                 R[i, j] = -1        #enclose numpy array with -1           #encloses numpy with -1
 
-def getQ(R,Q,row,col):
+def getQ(R,Q,row,col):          #get the new value of Q
     return (R[row,col] + gammaFactor*(findMax(Q,row,col)))
 
 def findMax(Q,row,col):
     return max(Q[row+1,col],Q[row-1,col],Q[row,col-1],Q[row,col+1])
 
 def spawnLocation(noRow,noCol):
-    obs = []
-    for i in range(0,8):
-        obs.append((2, i))
-    #print obs
+    location = []
     row = random.randint(1,noRow)
     col = random.randint(1,noCol)
-    if (row,col) not in obs:
-        return row,col
-    else:
-        return spawnLocation(noRow,noCol)
+    return row,col
 
 def training(R,Q,board,player):
     row,col = spawnLocation(board.w,board.h)
     player.currC = col
     player.currR = row
-    print row, col
     board.playerPosC = player.currC
     board.playerPosR = player.currR
     board.display()
-    #i=1
+    i=1
     while((player.currR != board.goalR) or (player.currC != board.goalC)):
         moveOneStep(player)
         Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
-        #print player.currR , player.currC
-        #print i
-        #display(Q)
-        # i = i+1
-        # if player.currR == 2:
-        #     print player.currC
+        i = i+1
         # board.playerPosC = player.currC
         # board.playerPosR = player.currR
         # board.display()
@@ -90,20 +70,26 @@ def moveOneStep(player):
 br = Board()
 br.initialise()
 p = Player(br)
-br.display()
+
 R = np.zeros((br.h + 2,br.w + 2))
 encloseMinusOne(R)
 initRewards(R,br.goalR,br.goalC)
 Q = np.zeros((br.h + 2,br.w + 2),dtype=float)
 encloseMinusOne(Q)
-#print R, Q
+
 for i in range(1000):
     training(R,Q,br,p)
     print i
 
 np.set_printoptions(threshold=np.nan)
 np.savez_compressed('trained_set.npz', Q = Q)
-plt.imshow(Q)
-plt.show()
+# plt.imshow(Q)
+# plt.show()
+
+def display(numpyArray):
+    for i in range(1, br.h + 1):
+        for j in range(1, br.w + 1):
+            print Q[i, j],
+        print '\n'
 
 display(Q)

@@ -26,7 +26,7 @@ pRow, pCol = random.randint(1, br.h),random.randint(1, br.w)
 p = Player(br, pRow, pCol)
 br.playerPosR, br.playerPosC = p.currR, p.currC
 br.initialise()
-
+br.reset()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 

@@ -25,19 +25,15 @@ while x == True:
     c = readchar.readchar()
     if c == 'w':
         p.moveUp()
-        print p.currR,p.currC
         p.winConditionCheck()
     elif c == 's':
         p.moveDown()
-        print p.currR,p.currC
         p.winConditionCheck()
     elif c == 'a':
         p.moveLeft()
-        print p.currR,p.currC
         p.winConditionCheck()
     elif c == 'd':
         p.moveRight()
-        print p.currR,p.currC
         p.winConditionCheck()
     elif c == 'q':
         print "Quitting.."

@@ -1,5 +1,5 @@
-height = 10
-width = 10
+height = 20
+width = 20
 cheeseR = 8
 cheeseC = 9
 class Board:
@@ -27,8 +27,6 @@ class Board:
                 if j == 0 or j == (self.w+1):
                     self.state[i][j] = '#'
                     continue
-        for i in range(1,8):
-            self.state[2][i] = '#'
         self.state[self.playerPosC][self.playerPosR] = 'P'
 
 
@@ -43,9 +41,6 @@ class Board:
                     self.state[i][j] = '#'
                     continue
                 self.state[i][j] = '_'
-        for i in range(1,8):
-            self.state[2][i] = '#'
-
         self.updatePos()
 
     def display(self):
