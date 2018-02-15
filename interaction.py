@@ -4,20 +4,27 @@ from pynput.keyboard import Key, Controller
 import readchar
 import os
 import random
+
+def spawnLocation(board,noRow,noCol):
+    row = random.randint(1,noRow)
+    col = random.randint(1,noCol)
+    if board.state[row][col] != '#':
+        return row,col
+    else:
+        return spawnLocation(board,noRow,noCol)
+
 keyboard = Controller()
 br = Board()
-# br.initialise()
-pRow, pCol = random.randint(1, br.h),random.randint(1, br.w)
+br.initialise()
+pRow, pCol = spawnLocation(br,br.h,br.w)
+# pRow, pCol = random.randint(1, br.h),random.randint(1, br.w)
 p = Player(br, pRow, pCol)
 br.playerPosR, br.playerPosC = p.currR, p.currC
-br.initialise()
-br.reset()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
 br.display()
 print p.currR, ",", p.currC
-print "Fitness:", p.fitness
 print "Score:", p.score
 
 x = True
@@ -49,5 +56,4 @@ while x == True:
     br.display()
 
     print p.currR, ",", p.currC
-    print "Fitness:", p.fitness
     print "Score:", p.score

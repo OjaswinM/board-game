@@ -1,14 +1,19 @@
 from board import Board
 import random
 
+def resetLocation(state,noRow,noCol):
+    row = random.randint(1,noRow)
+    col = random.randint(1,noCol)
+    if state[row][col] != '#':
+        return row,col
+    else:
+        return resetLocation(state,noRow,noCol)
 
 class Player(Board):
     def __init__(self, brd, row = 1, col = 1):
         self.currC = col
         self.currR= row
-        self.moves = []
         self.board = brd.state
-        self.fitness = None
         self.goalC = brd.goalC
         self.goalR = brd.goalR
         self.score = 0
@@ -21,26 +26,18 @@ class Player(Board):
     def moveLeft(self):
         if self.board[self.currR][self.currC - 1] != '#':
             self.currC -= 1
-            self.moves.append((self.currC, self.currR))
-            self.fitnessCalc()
     def moveRight(self):
         if self.board[self.currR][self.currC + 1] != '#':
             self.currC += 1
-            self.moves.append((self.currC, self.currR))
-            self.fitnessCalc()
     def moveUp(self):
         if self.board[self.currR - 1][self.currC] != '#':
             self.currR -= 1
-            self.moves.append((self.currC, self.currR))
-            self.fitnessCalc()
     def moveDown(self):
         if self.board[self.currR + 1][self.currC] != '#':
             self.currR += 1
-            self.moves.append((self.currC, self.currR))
-            self.fitnessCalc()
 
     def win(self):
-        pRow, pCol = random.randint(1, self.sizeR),random.randint(1, self.sizeC)
+        pRow, pCol = resetLocation(self.board,self.sizeR,self.sizeC)
         self.currR = pRow;
         self.currC = pCol;
         self.score += 1

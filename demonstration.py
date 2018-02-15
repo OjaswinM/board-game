@@ -32,7 +32,6 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 br.display()
 print p.currR, ",", p.currC
-print "Fitness: ", p.fitness
 print "Score: ", p.score
 
 x = True
@@ -52,7 +51,6 @@ while x == True:
     os.system('cls' if os.name == 'nt' else 'clear')
     br.display()
     print p.currR, ",", p.currC
-    print "Fitness: ", p.fitness
     print "Score: ", p.score
 
     time.sleep(0.1)
