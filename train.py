@@ -5,17 +5,12 @@ import random
 import time
 import os
 import matplotlib.pyplot as plt
-import signal
+import time, threading, thread
 
-class TimeoutException(Exception):   # Custom exception class
-    pass
-
-def timeout_handler(signum, frame):   # Custom signal handler
-    raise TimeoutException
-
-# Change the behavior of SIGALRM
-signal.signal(signal.SIGALRM, timeout_handler)
-
+def watchdog_timer(state):
+    time.sleep(2)
+    if not state['completed']:
+        thread.interrupt_main()
 
 gammaFactor = 0.85
 try:
@@ -23,11 +18,11 @@ try:
 except OSError:
     pass
 
-def display(numpyArray):
-    for i in range(1, br.h + 1):
-        for j in range(1, br.w + 1):
-            print Q[i,j],
-        print '\n'
+# def display(numpyArray):
+#     for i in range(1, br.h + 1):
+#         for j in range(1, br.w + 1):
+#             print Q[i,j],
+#         print '\n'
 
 def initRewards(board,R,row,col):
     R[row,col] = 1000
@@ -59,23 +54,29 @@ def spawnLocation(board,noRow,noCol):
         return spawnLocation(board,noRow,noCol)
 
 def training(R,Q,board,player):
-    try:
-        row,col = spawnLocation(board,board.w,board.h)
-        player.currC = col
-        player.currR = row
-        print row, col
-        board.playerPosC = player.currC
-        board.playerPosR = player.currR
-        board.display()
+    while True:
+        state = {'completed': False}
+        watchdog = threading.Thread(target=watchdog_timer, args=(state,))
+        watchdog.daemon = True
+        watchdog.start()
+        try:
+            row,col = spawnLocation(board,board.w,board.h)
+            player.currC = col
+            player.currR = row
+            board.playerPosC = player.currC
+            board.playerPosR = player.currR
+            board.display()
 
-        while((player.currR != board.goalR) or (player.currC != board.goalC)):
-            moveOneStep(player)
-            Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
+            while((player.currR != board.goalR) or (player.currC != board.goalC)):
+                moveOneStep(player)
+                Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
+            state['completed'] = True
+        except KeyboardInterrupt:
+            # this would be the place to log the timeout event
+            pass
+        else:
+            break
 
-    except TimeoutException:
-        continue
-    else:
-        signal.alarm(0)
 def moveOneStep(player):
     temp = random.randint(1,4)
     if temp == 1:
@@ -98,8 +99,10 @@ Q = np.zeros((br.h + 2,br.w + 2),dtype=float)
 encloseMinusOne(Q)
 #print R, Q
 for i in range(1000):
-    training(R,Q,br,p)
-    print i
+   training(R,Q,br,p)
+   print i
+
+
 
 np.set_printoptions(threshold=np.nan)
 np.savez_compressed('trained_set.npz', Q = Q)
