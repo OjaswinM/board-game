@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import time, threading, thread
 
 def watchdog_timer(state):
-    time.sleep(2)
+    time.sleep(0.5)
     if not state['completed']:
         thread.interrupt_main()
 
