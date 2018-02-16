@@ -2,12 +2,10 @@ from board import Board
 import random
 
 def resetLocation(state,noRow,noCol):
-    row = random.randint(1,noRow)
-    col = random.randint(1,noCol)
+    row = 2
+    col = 23
     if state[row][col] != '#':
         return row,col
-    else:
-        return resetLocation(state,noRow,noCol)
 
 class Player(Board):
     def __init__(self, brd, row = 1, col = 1):
