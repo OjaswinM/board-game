@@ -5,6 +5,17 @@ import random
 import time
 import os
 import matplotlib.pyplot as plt
+import signal
+
+class TimeoutException(Exception):   # Custom exception class
+    pass
+
+def timeout_handler(signum, frame):   # Custom signal handler
+    raise TimeoutException
+
+# Change the behavior of SIGALRM
+signal.signal(signal.SIGALRM, timeout_handler)
+
 
 gammaFactor = 0.85
 try:
@@ -48,18 +59,23 @@ def spawnLocation(board,noRow,noCol):
         return spawnLocation(board,noRow,noCol)
 
 def training(R,Q,board,player):
-    row,col = spawnLocation(board,board.w,board.h)
-    player.currC = col
-    player.currR = row
-    print row, col
-    board.playerPosC = player.currC
-    board.playerPosR = player.currR
-    board.display()
+    try:
+        row,col = spawnLocation(board,board.w,board.h)
+        player.currC = col
+        player.currR = row
+        print row, col
+        board.playerPosC = player.currC
+        board.playerPosR = player.currR
+        board.display()
 
-    while((player.currR != board.goalR) or (player.currC != board.goalC)):
-        moveOneStep(player)
-        Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
+        while((player.currR != board.goalR) or (player.currC != board.goalC)):
+            moveOneStep(player)
+            Q[player.currR,player.currC] = getQ(R,Q,player.currR,player.currC)
 
+    except TimeoutException:
+        continue
+    else:
+        signal.alarm(0)
 def moveOneStep(player):
     temp = random.randint(1,4)
     if temp == 1:
