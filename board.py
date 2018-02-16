@@ -1,9 +1,12 @@
-height = 9
-width = 10
-cheeseR = 8
-cheeseC = 9
+import numpy as np
+loadedArray = np.load('Maze1.npz')
+maze = loadedArray['R']
+height = maze.shape[0] - 2
+width = maze.shape[1] - 2
+cheeseR = 48
+cheeseC = 29
 class Board:
-    def __init__(self,h=height,w=width, row = 1, col = 1):
+    def __init__(self,h=height,w=width, row = 2, col = 23):
         self.h = h
         self.w = w
         self.state = []
@@ -13,20 +16,25 @@ class Board:
         self.goalR = cheeseR
 
     def initMaze(self):
-        for i in range(1,11):
-            if i != 8:
-                self.state[2][i] = '#'
-        for i in range(4,11):
-            self.state[4][i] = '#'
-        for i in range(1,3):
-            self.state[4][i] = '#'
-        for i in range(1,10):
-            if i !=7:
-                self.state[6][i] = '#'
-        for i in range(8,11):
-            self.state[7][i] = '#'
-        for i in range(2,9):
-            self.state[8][i] = '#'
+        # for i in range(1,11):
+        #     if i != 8:
+        #         self.state[2][i] = '#'
+        # for i in range(4,11):
+        #     self.state[4][i] = '#'
+        # for i in range(1,3):
+        #     self.state[4][i] = '#'
+        # for i in range(1,10):
+        #     if i !=7:
+        #         self.state[6][i] = '#'
+        # for i in range(8,11):
+        #     self.state[7][i] = '#'
+        # for i in range(2,9):
+        #     self.state[8][i] = '#'
+        for i in range(maze.shape[0]):
+            for j in range(maze.shape[1]):
+                if maze[i, j] != 0:
+                    self.state[i][j] = '#'
+
 
     def updatePos(self):
         self.state[self.playerPosR][self.playerPosC] = 'P'
